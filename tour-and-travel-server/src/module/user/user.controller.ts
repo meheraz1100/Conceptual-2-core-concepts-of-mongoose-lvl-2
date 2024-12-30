@@ -12,10 +12,11 @@ const createUser = async (req: Request, res: Response) => {
       message: 'User Created Successfully',
       data: result,
     })
-  } catch {
+  } catch (error) {
     res.json({
-        status: false,
-        message: ""
+      status: false,
+      message: 'Something went wrong',
+      error,
     })
   }
 }

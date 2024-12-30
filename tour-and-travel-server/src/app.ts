@@ -6,7 +6,7 @@ const app = express()
 // middlewere
 app.use(express.json())
 
-app.use("/api/user", userRouter)
+app.use('/api/user', userRouter)
 
 // POST : api/user/create-user
 
