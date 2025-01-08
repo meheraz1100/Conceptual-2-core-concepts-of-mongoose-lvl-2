@@ -24,7 +24,7 @@ const userSchema = new Schema({
     message: '{VALUE} is not a valid role',
     required: true,
   },
-})
+})  
 
 const User = model('User', userSchema)
 export default User
