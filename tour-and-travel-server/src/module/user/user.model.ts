@@ -17,7 +17,7 @@ const userSchema = new Schema({
     enum: ['user', 'admin'],
     message: '{VALUE} is not a valid role',
     requied: true,
-  }, 
+  },
   userStatus: {
     type: String,
     enum: ['active', 'inactive'],
