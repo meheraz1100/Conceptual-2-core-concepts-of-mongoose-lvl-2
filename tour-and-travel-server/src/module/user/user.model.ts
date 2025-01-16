@@ -1,15 +1,24 @@
 import { model, Schema } from 'mongoose'
+import { IUser } from './user.interface'
 
-const userSchema = new Schema({
+const userSchema = new Schema<IUser>({
   name: {
     type: String,
     required: [true, 'Please Provide your name'],
+    minlength: 3,
+    maxlength: 50,
   },
   age: { type: Number, required: [true, 'Please enter your age'] },
   email: {
     type: String,
-    required: [true, 'Please provide your email'],
+    required: [true, 'Please Provide your email'],
     unique: true,
+    validate: {
+      validator: function (value: string) {
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)
+      },
+      message: '{VALUE} is not a valid email',
+    },
   },
   photo: String,
   role: {
@@ -17,7 +26,7 @@ const userSchema = new Schema({
     enum: ['user', 'admin'],
     message: '{VALUE} is not a valid role',
     requied: true,
-  }, 
+  },
   userStatus: {
     type: String,
     enum: ['active', 'inactive'],
@@ -26,5 +35,5 @@ const userSchema = new Schema({
   },
 })
 
-const User = model('User', userSchema)
+const User = model<IUser>('User', userSchema)
 export default User
