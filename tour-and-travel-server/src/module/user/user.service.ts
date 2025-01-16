@@ -6,6 +6,19 @@ const createUser = async (payload: IUser): Promise<IUser> => {
   return result
 }
 
+const getUser = async () => {
+  const result = await User.find()
+  return result
+}
+
+const getSingleUser = async (id: string) => {
+  // const result = await User.findOne({name: 'habi jabi'})
+  const result = await User.findById(id)
+  return result
+}
+
 export const userService = {
   createUser,
+  getUser,
+  getSingleUser,
 }

@@ -9,6 +9,7 @@ const createUser = async (req: Request, res: Response) => {
     const result = await userService.createUser(payload)
 
     res.json({
+      status: true,
       message: 'User Created Successfully',
       data: result,
     })
@@ -21,6 +22,25 @@ const createUser = async (req: Request, res: Response) => {
   }
 }
 
+const getUser = async (req: Request, res: Response) => {
+  try {
+    const result = await userService.getUser()
+
+    res.send({
+      status: true,
+      message: 'Users getting successfully!!',
+      result,
+    })
+  } catch (error) {
+    res.json({
+      status: false,
+      message: 'Something went wrong!!',
+      error,
+    })
+  }
+}
+
 export const userController = {
   createUser,
+  getUser,
 }

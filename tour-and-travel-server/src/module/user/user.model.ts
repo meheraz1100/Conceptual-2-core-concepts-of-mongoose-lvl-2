@@ -23,8 +23,11 @@ const userSchema = new Schema<IUser>({
   photo: String,
   role: {
     type: String,
-    enum: ['user', 'admin'],
-    message: '{VALUE} is not a valid role',
+    enum: {
+      values: ['user', 'admin'],
+      message: '{VALUE} is not a valid role, please provide a valid role',
+    },
+    default: 'user',
     requied: true,
   },
   userStatus: {
@@ -32,6 +35,7 @@ const userSchema = new Schema<IUser>({
     enum: ['active', 'inactive'],
     message: '{VALUE} is not a valid role',
     required: true,
+    default: 'active',
   },
 })
 
