@@ -17,9 +17,11 @@ const getSingleUser = async (id: string) => {
   return result
 }
 
-const getUpdateUser = async (id: string, data: IUser) => {
+const updateUser = async (id: string, data: IUser) => {
   // const result = await User.findOne({name: 'habi jabi'})
-  const result = await User.findByIdAndUpdate(id, data)
+  const result = await User.findByIdAndUpdate(id, data, {
+    new: true,
+  })
   return result
 }
 
@@ -32,6 +34,6 @@ export const userService = {
   createUser,
   getUser,
   getSingleUser,
-  getUpdateUser,
+  updateUser,
   deleteUser,
 }

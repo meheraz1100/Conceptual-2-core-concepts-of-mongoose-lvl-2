@@ -42,7 +42,9 @@ const getUser = async (req: Request, res: Response) => {
 
 const getSingleUser = async (req: Request, res: Response) => {
   try {
-    const result = await userService.getSingleUser()
+    const userId = req.params.userId
+
+    const result = await userService.getSingleUser(userId)
 
     res.send({
       status: true,
@@ -60,11 +62,14 @@ const getSingleUser = async (req: Request, res: Response) => {
 
 const updateUser = async (req: Request, res: Response) => {
   try {
-    const result = await userService.updateUser()
+    const userId = req.params.userId
+    const body = req.body
+
+    const result = await userService.updateUser(userId, body)
 
     res.send({
       status: true,
-      message: 'User getting successfully!!',
+      message: 'User updated successfully!!',
       result,
     })
   } catch (error) {
@@ -78,11 +83,13 @@ const updateUser = async (req: Request, res: Response) => {
 
 const deleteUser = async (req: Request, res: Response) => {
   try {
-    const result = await userService.deleteUser()
+    const userId = req.params.userId
+
+    const result = await userService.deleteUser(userId)
 
     res.send({
       status: true,
-      message: 'User getting successfully!!',
+      message: 'User deleted successfully!!',
       result,
     })
   } catch (error) {
