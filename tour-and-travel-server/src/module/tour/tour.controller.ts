@@ -4,7 +4,7 @@ import { tourService } from './tour.service'
 const createTour = async (req: Request, res: Response) => {
   try {
     const body = req.body
-    const result = tourService.createTour(body)
+    const result = await tourService.createTour(body)
 
     res.send({
       success: true,
@@ -22,11 +22,11 @@ const createTour = async (req: Request, res: Response) => {
 
 const getTours = async (req: Request, res: Response) => {
   try {
-    const result = tourService.getTours()
+    const result = await tourService.getTours()
 
     res.send({
       success: true,
-      message: 'Tour getting successfully',
+      message: 'Tours getting successfully',
       result,
     })
   } catch (error) {
@@ -38,11 +38,11 @@ const getTours = async (req: Request, res: Response) => {
   }
 }
 
-const getSingleTours = async (req: Request, res: Response) => {
+const getSingleTour = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.userId
+    const id = req.params.userId
 
-    const result = tourService.getSingleTour(userId)
+    const result = await tourService.getSingleTour(id)
 
     res.send({
       success: true,
@@ -60,10 +60,10 @@ const getSingleTours = async (req: Request, res: Response) => {
 
 const updateTour = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.userId
+    const id = req.params.userId
     const body = req.body
 
-    const result = await tourService.updateTour(userId, body)
+    const result = await tourService.updateTour(id, body)
 
     res.send({
       success: true,
@@ -81,9 +81,9 @@ const updateTour = async (req: Request, res: Response) => {
 
 const deleteTour = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.userId
+    const id = req.params.userId
 
-    const result = await tourService.deleteTour(userId)
+    const result = await tourService.deleteTour(id)
 
     res.send({
       success: true,
@@ -102,7 +102,7 @@ const deleteTour = async (req: Request, res: Response) => {
 export const tourController = {
   createTour,
   getTours,
-  getSingleTours,
+  getSingleTour,
   updateTour,
   deleteTour,
 }
