@@ -41,7 +41,7 @@ tourSchema.methods.getNextNearestStartDateAndEndDate = function () {
   const estimatedEndDate = new Date(
     nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000
   )
- 
+
   return {
     nearestStartDate,
     estimatedEndDate,
