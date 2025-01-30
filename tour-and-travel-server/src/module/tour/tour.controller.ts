@@ -41,6 +41,7 @@ const getTours = async (req: Request, res: Response) => {
 const getSingleTour = async (req: Request, res: Response) => {
   try {
     const id = req.params.userId
+    // console.log(id)
 
     const result = await tourService.getSingleTour(id)
 
@@ -99,10 +100,53 @@ const deleteTour = async (req: Request, res: Response) => {
   }
 }
 
+// const getNextSchedule = async (req: Request, res: Response) => {
+//   try {
+//     const id = req.params.userId
+//     console.log(id)
+
+//     const result = await tourService.getNextSchedule(id)
+
+//     res.send({
+//       success: true,
+//       message: 'Tour Schedule getting successfully',
+//       result,
+//     })
+//   } catch (error) {
+//     res.send({
+//       success: false,
+//       message: 'something went wrong!!!',
+//       error,
+//     })
+//   }
+// }
+
+const getNextSchedule = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.userId
+    // console.log(id)
+
+    const result = await tourService.getNextSchedule(id)
+
+    res.send({
+      success: true,
+      message: 'Tour schedule getting successfully',
+      result,
+    })
+  } catch (error) {
+    res.send({
+      success: false,
+      message: 'something went wrong!!!',
+      error,
+    })
+  }
+}
+
 export const tourController = {
   createTour,
   getTours,
   getSingleTour,
   updateTour,
   deleteTour,
+  getNextSchedule,
 }

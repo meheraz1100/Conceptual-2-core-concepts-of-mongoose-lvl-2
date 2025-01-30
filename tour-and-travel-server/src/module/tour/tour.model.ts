@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose'
+import TTourModel, { ITour, ITourMethods } from './tour.interface'
 
-const tourSchema = new Schema({
+const tourSchema = new Schema<ITour, TTourModel, ITourMethods>({
   name: {
     type: String,
     required: true,
@@ -21,32 +22,55 @@ const tourSchema = new Schema({
     type: String,
     required: true,
   },
-  image: [String],
+  images: [String],
   startDates: [Date],
   startLocation: { type: String },
   locations: [String],
   slug: String,
 })
 
-tourSchema.methods.getNextNearestStartDateAndEndDate = function () {
-  const today = new Date()
+// tourSchema.methods.getNextNearestStartDateAndEndDate = function () {
+//   const today = new Date()
 
-  const futureDates = this.startDates.filter((startDate: Date) => {
-    return startDate > today
-  })
+//   const futureDates = this.startDates.filter((startDate: Date) => {
+//     return startDate > today
+//   })
 
-  futureDates.sort((a: Date, b: Date) => a.getTime() - b.getTime())
+//   futureDates.sort((a: Date, b: Date) => a.getTime() - b.getTime())
 
-  const nearestStartDate = futureDates[0]
-  const estimatedEndDate = new Date(
-    nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000
-  )
+//   const nearestStartDate = futureDates[0]
+//   const estimatedEndDate = new Date(
+//     nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000
+//   )
 
-  return {
-    nearestStartDate,
-    estimatedEndDate,
+//   return {
+//     nearestStartDate,
+//     estimatedEndDate,
+//   }
+// }
+
+tourSchema.static(
+  'getNextNearestStartDateAndEndDate',
+  function getNextNearestStartDateAndEndDate() {
+    const today = new Date()
+
+    const futureDates = this.startDates.filter((startDate: Date) => {
+      return startDate > today
+    })
+
+    futureDates.sort((a: Date, b: Date) => a.getTime() - b.getTime())
+
+    const nearestStartDate = futureDates[0]
+    const estimatedEndDate = new Date(
+      nearestStartDate.getTime() + this.durationHours * 60 * 60 * 1000
+    )
+
+    return {
+      nearestStartDate,
+      estimatedEndDate,
+    }
   }
-}
+)
 
-const Tour = model('Tour', tourSchema)
+const Tour = model<ITour, TTourModel>('Tour', tourSchema)
 export default Tour

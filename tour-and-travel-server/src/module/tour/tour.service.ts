@@ -7,23 +7,35 @@ const createTour = async (payload: ITour) => {
 }
 
 const getTours = async () => {
-  const result = Tour.find()
+  const result = await Tour.find()
   return result
 }
 
 const getSingleTour = async (id: string) => {
-  const result = Tour.findById(id)
+  // console.log(id)
+  const result = await Tour.findById(id)
   return result
 }
 
 const updateTour = async (id: string, payload: Partial<ITour>) => {
-  const result = Tour.findByIdAndUpdate(id, payload)
+  const result = await Tour.findByIdAndUpdate(id, payload)
   return result
 }
 
 const deleteTour = async (id: string) => {
-  const result = Tour.findByIdAndDelete(id)
+  const result = await Tour.findByIdAndDelete(id)
   return result
+}
+
+const getNextSchedule = async (id: string) => {
+  const tour = await Tour.findById(id)
+  // const tour = await Tour.getNextNearestStartDateAndEndDate()
+  const nextSchedule = tour?.getNextNearestStartDateAndEndDate()
+
+  return {
+    tour,
+    nextSchedule,
+  }
 }
 
 export const tourService = {
@@ -32,4 +44,5 @@ export const tourService = {
   getSingleTour,
   updateTour,
   deleteTour,
+  getNextSchedule,
 }
